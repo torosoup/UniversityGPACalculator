@@ -1,103 +1,65 @@
 # University GPA Calculator
 
-A simple C# console application for calculating university GPA based on completed courses and grades. Made for C# practice purposes.
+A simple C# console application for calculating university grade point averages based on courses, credits, and grades. Made for C# practice purposes.
 
 ## Features
 
-* Calculate GPA from multiple courses
-* Support for letter grades
-* Automatic grade point conversion
-* Displays total credits and GPA
-* Simple console-based user interface
+* Add courses with name, credits, and grade
+* Prevent duplicate course names
+* Validate user input
+* Calculate weighted GPA
+* Support both letter grades (A–E) and Passed courses
+* Save and load transcripts in %AppData% using JSON
+
+## Technologies
+
+* C#
+* .NET
+* JSON serialization (`System.Text.Json`)
+
+## How to Run
+
+```bash
+dotnet run
+```
+
+## Example
+
+```text
+=== University Grade Calculator ===
+
+1. Add course
+2. Show courses
+3. Calculate GPA
+4. Save transcript (JSON)
+5. Load transcript (JSON)
+6. Exit
+```
 
 ## Project Structure
 
 ```text
 UniversityGPACalculator/
 │
-├── data/
-│   ├── GradeCalculator.cs
-|
+├── Program.cs
 ├── model/
 │   ├── Course.cs
 │   └── Grade.cs
 │
-├── Program.cs
-├── UniversityGPACalculator.csproj
+├── data/
+│   ├── GradeCalculator.cs
+│   └── TranscriptRepository.cs
+│
 └── README.md
 ```
 
-## Requirements
-
-* .NET SDK
-* Windows, Linux, or macOS
-
-## Installation
-
-Clone the repository:
-
-```bash
-git clone <repository-url>
-cd UniversityGPACalculator
-```
-
-Build the project:
-
-```bash
-dotnet build
-```
-
-Run the application:
-
-```bash
-dotnet run
-```
-
-## Usage
-
-1. Start the application.
-2. Enter course information when prompted.
-3. Enter grades and credit values.
-4. The application calculates and displays the GPA.
-
-Example:
-
-```text
-Course: IN1010
-Credits: 10
-Grade: A
-
-Course: IN2000
-Credits: 10
-Grade: B
-
-GPA: 4.50
-```
-
-## Grade Scale
-
-| Grade | Points |
-| ----- | ------ |
-| A     | 5      |
-| B     | 4      |
-| C     | 3      |
-| D     | 2      |
-| E     | 1      |
-| F     | 0      |
-
-## Technologies
-
-* C#
-* .NET
-* Object-Oriented Programming
-
 ## Future Improvements
 
-* Save and load transcripts
-* Export results to CSV
-* GUI version using WPF or WinForms
-* Unit tests
+* Remove or edit courses
+* Multiple transcript support
+* CSV export
+* Automatic saving
 
 ## License
 
-This project is licensed under the MIT License.
+MIT License
