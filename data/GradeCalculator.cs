@@ -7,6 +7,12 @@ public class GradeCalculator
         int totalPoints = 0;
         int gradedCredits = 0;
 
+        /* 
+        - FK2 Beregning av karaktersnitt: Systemet skal beregne brukerens vektede karaktersnitt basert på studiepoeng og karakterverdi. 
+        Karakterene skal omregnes til tallverdier der (A-E:5-1). Karakterer av karakterverdi "bestått" skal ikke inkluderes i beregningen 
+        av karaktersnitt. 
+        */
+
         foreach (Course course in courses)
         {
             if (course.grade == Grade.Passed) {continue;}

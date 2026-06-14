@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using UniversityGPACalculator.model;
+using System.Net;
 
 public class Program
 {
@@ -11,6 +13,12 @@ public class Program
 
         while (true)
         {
+            /*
+            - FK1 Registrering av emner: Systemet skal la brukeren registrere ett eller flere emner med: Emnekode eller emnenavn, antall studiepoeng, Karakter (A-E) eller bestått.
+            - FK5 Registrering av flere emner: Brukeren skal kunne legge til flere emner før snittet beregnes
+            - FK6 Avslutning av registrering: Brukeren skal kunne velge når registreringen av emner er ferdig og beregningen skal utføres.
+            */
+
             Console.WriteLine("\n=== University Grade Calculator ===");
             Console.WriteLine("1. Add course");
             Console.WriteLine("2. Show courses");
@@ -44,13 +52,15 @@ public class Program
 
     static void AddCourse(List<Course> courses)
     {
-        Console.Write("Course name: ");
-        string name = Console.ReadLine() ?? ""; // refaktorer senere
 
-        int credits = ReadCredits(); // int.Parse(Console.ReadLine()); // nf-req 3
+        /* 
+        - FK4 Validering av inndata: Systemet skal kontrollere at: Studiepoeng er større enn 0, 
+        Karakter kun er A-E, Obligatoriske felt ikke er tomme. Emner skal ha unike navn.
+        */
+
+        string name = ReadName(courses);
+        int credits = ReadCredits();
         Grade grade = ReadGrade();
-
-        // Grade grade = ParseGrade(gradeInput);
 
         courses.Add(new Course
         {
@@ -77,9 +87,12 @@ public class Program
         var average = calculator.CalculateAverage(courses);
         var (totalCredits, passedCredits) = calculator.CalculateCredits(courses);
 
+        /* FK3 Visning av resultat: Systemet skal vise: Totalt antall studiepoeng, Beregnet snitt med to desimaler, Tilsvarende bokstavsnitt (A-E). */
+
         Console.WriteLine("\n--- Result ---");
         Console.WriteLine($"Average: {average:F2} ({calculator.AverageToLetter(average)})");
-        Console.WriteLine($"Total credits in calculation: {totalCredits - passedCredits}");
+        Console.WriteLine($"Total credits in calculation: {totalCredits - passedCredits}"); // Karakterer av karakterverdi "bestått" skal ikke inkluderes i beregningen av karaktersnitt. 
+
     }
     static int ReadCredits()
     {
@@ -129,6 +142,32 @@ public class Program
                 Console.WriteLine("Invalid grade. Please enter A, B, C, D, E or Passed.");
                 break;
         }
+        }
+    }
+
+    static string ReadName(List<Course> courses)
+    {
+        while (true) 
+        {
+            Console.Write("Course name: ");
+            string? name = Console.ReadLine();
+
+            /* Obligatoriske felt ikke er tomme. Emner skal ha unike navn. */
+            
+            if (string.IsNullOrWhiteSpace(name))
+            
+            {
+                Console.WriteLine("Name cannot be empty");
+                continue;
+            }
+            
+            if (courses.Any(c => c.name.Equals(name, StringComparison.OrdinalIgnoreCase)))
+            {
+                Console.WriteLine("A course with that name already exists.");
+                continue;
+            }
+
+            return name;
         }
     }
 }
