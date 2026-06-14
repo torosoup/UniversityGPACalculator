@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Collections.Generic;
 using UniversityGPACalculator.model;
+using UniversityGPACalculator.data;
 using System.Net;
 
 public class Program
@@ -10,6 +11,8 @@ public class Program
     {
         var courses = new List<Course>();
         var calculator = new GradeCalculator();
+        var repository = new TranscriptRepository();
+        // var loadedCourses = repository.Load();
 
         while (true)
         {
@@ -23,7 +26,9 @@ public class Program
             Console.WriteLine("1. Add course");
             Console.WriteLine("2. Show courses");
             Console.WriteLine("3. Calculate GPA");
-            Console.WriteLine("4. Exit");
+            Console.WriteLine("4. Save transcript (JSON)");
+            Console.WriteLine("5. Load transcript (JSON)");
+            Console.WriteLine("6. Exit");
             Console.Write("Choose: ");
 
             string? input = Console.ReadLine();
@@ -40,7 +45,16 @@ public class Program
                     Calculate(courses, calculator);
                     break;
                 case "4":
+                    repository.Save(courses);
+                    Console.WriteLine("Transcript saved.");
+                    break;
+                case "5":
+                    courses = repository.Load();
+                    Console.WriteLine("Transcript loaded.");
+                    break;
+                case "6":
                     return;
+                    
 
                 default:
                     Console.WriteLine("Invalid choice.");
