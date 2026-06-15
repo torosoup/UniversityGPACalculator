@@ -4,11 +4,9 @@ A simple C# console application for calculating university grade point averages 
 
 ## Features
 
-* Add courses with name, credits, and grade
-* Prevent duplicate course names
-* Validate user input
+* Add courses with name, credits, and grade to list
+* Show overview of list with added courses with name, credits, and grade
 * Calculate weighted GPA
-* Support both letter grades (A–E) and Passed courses
 * Save and load transcripts in %AppData% using JSON
 
 ## Technologies
@@ -52,13 +50,6 @@ UniversityGPACalculator/
 │
 └── README.md
 ```
-
-## Future Improvements
-
-* Remove or edit courses
-* Multiple transcript support
-* CSV export
-* Automatic saving
 
 ## License
 
